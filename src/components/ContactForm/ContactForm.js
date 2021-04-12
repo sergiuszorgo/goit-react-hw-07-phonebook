@@ -51,6 +51,7 @@ class ContactForm extends Component {
     // add new===
     if (name && number) {
       this.props.addContact(this.state);
+      console.log(name, number);
       this.resetForm();
       return;
     }

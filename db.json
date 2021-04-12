@@ -1,7 +1,14 @@
 {
-  "contacts": {
-    "id": "_ji86VA_6uP1IAlaUaNwD",
-    "name": "Владимир Новицкий",
-    "number": "0000"
-  }
+  "contacts": [
+    {
+      "id": "_ji86VA_6uP1IAlaUaNwD",
+      "name": "Владимир Новицкий",
+      "number": "+380985623456"
+    },
+    {
+      "id": "_6uP1IA_ji86VAlaUaNwD",
+      "name": "Наталья Новицкая",
+      "number": "+380985623654"
+    }
+  ]
 }
