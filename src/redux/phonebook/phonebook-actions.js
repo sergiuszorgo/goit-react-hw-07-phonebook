@@ -1,33 +1,19 @@
-import { nanoid } from "nanoid";
-import { createAction } from "@reduxjs/toolkit";
-import axios from "axios"; // temp
+import { createAction } from '@reduxjs/toolkit';
 
-//========TEST============
-const addContact = ({ name, number }) => (dispatch) => {
-  console.log(name, number);
-  const contact = { id: nanoid(), name, number };
-  dispatch({ type: "contact/addContactRequest" });
-  axios
-    .post("/contacts", contact)
-    .then(({ data }) =>
-      dispatch({ type: "contact/addContactSuccess", payload: data })
-    )
-    .catch((error) =>
-      dispatch({ type: "contact/addContactError", payload: error })
-    );
-};
-//========================
+export const getContactsRequest = createAction('contact/getContactsRequest');
+export const getContactsSuccess = createAction('contact/getContactsSuccess');
+export const getContactsError = createAction('contact/getContactsError');
 
-// const addContact = createAction("contact/add", ({ name, number }) => ({
-//   payload: {
-//     id: nanoid(),
-//     name,
-//     number,
-//   },
-// }));
+export const addContactRequest = createAction('contact/addContactRequest');
+export const addContactSuccess = createAction('contact/addContactSuccess');
+export const addContactError = createAction('contact/addContactError');
 
-const deleteContact = createAction("contact/delete");
+export const deleteContactRequest = createAction(
+  'contact/deleteContactRequest',
+);
+export const deleteContactSuccess = createAction(
+  'contact/deleteContactSuccess',
+);
+export const deleteContactError = createAction('contact/deleteContactError');
 
-const changeFilter = createAction("contact/changeFilter");
-
-export default { addContact, deleteContact, changeFilter };
+export const changeFilter = createAction('contact/changeFilter');

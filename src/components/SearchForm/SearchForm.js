@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import propTypes from "prop-types";
-import phonebookActions from "../../redux/phonebook/phonebook-actions";
+import * as phonebookActions from "../../redux/phonebook/phonebook-actions";
 import s from "./SearchForm.module.css";
 
 const SearchForm = ({ filter, inputForm }) => {

@@ -1,28 +1,48 @@
-import { combineReducers } from "redux";
-import { createReducer } from "@reduxjs/toolkit";
-import actions from "./phonebook-actions";
+import { combineReducers } from 'redux';
+import { createReducer } from '@reduxjs/toolkit';
+import {
+  getContactsRequest,
+  getContactsSuccess,
+  getContactsError,
+  addContactRequest,
+  addContactSuccess,
+  addContactError,
+  deleteContactRequest,
+  deleteContactSuccess,
+  deleteContactError,
+  changeFilter,
+} from './phonebook-actions';
 
 const contacts = createReducer([], {
-  addContactSuccess: (state, { payload }) => {
-    // const checkDublicat = state.filter(
-    //   (contact) => payload.name === contact.name
-    // );
-    // if (checkDublicat.length) {
-    //   alert(`${payload.name} - present in contacts`);
-    //   return state;
-    // }
-    console.log(payload);
+  [getContactsSuccess]: (_, { payload }) => payload,
+  [addContactSuccess]: (state, { payload }) => {
     return [...state, payload];
   },
-  [actions.deleteContact]: (state, { payload }) =>
+  [deleteContactSuccess]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
 });
 
-const filter = createReducer("", {
-  [actions.changeFilter]: (_, { payload }) => payload,
+const loading = createReducer(false, {
+  [getContactsRequest]: () => true,
+  [getContactsSuccess]: () => false,
+  [getContactsError]: () => false,
+  [addContactRequest]: () => true,
+  [addContactSuccess]: () => false,
+  [addContactError]: () => false,
+  [deleteContactRequest]: () => true,
+  [deleteContactSuccess]: () => false,
+  [deleteContactError]: () => false,
 });
+
+const filter = createReducer('', {
+  [changeFilter]: (_, { payload }) => payload,
+});
+
+const error = createReducer(null, {});
 
 export default combineReducers({
   contacts,
   filter,
+  loading,
+  error,
 });

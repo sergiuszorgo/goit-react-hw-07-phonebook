@@ -1,5 +1,5 @@
-import axios from "axios";
-import { nanoid } from "nanoid";
+import axios from 'axios';
+import { nanoid } from 'nanoid';
 import {
   getContactsRequest,
   getContactsSuccess,
@@ -10,33 +10,37 @@ import {
   deleteContactRequest,
   deleteContactSuccess,
   deleteContactError,
-} from "./phonebook-actions";
+} from './phonebook-actions';
 
 axios.defaults.baseURL = `http://localhost:4040`;
 
-const getContacts = () => (dispatch) => {
+const getContacts = () => dispatch => {
   dispatch(getContactsRequest());
   axios
-    .get("/contacts")
+    .get('/contacts')
     .then(({ data }) => dispatch(getContactsSuccess(data)))
-    .catch((error) => dispatch(getContactsError(error)));
+    .catch(error => dispatch(getContactsError(error)));
 };
 
-const addContact = ({ name, number }) => (dispatch) => {
+const addContact = ({ name, number }) => dispatch => {
   const contact = { id: nanoid(), name, number };
   dispatch(addContactRequest());
   axios
-    .post("/contacts", contact)
+    .post('/contacts', contact)
     .then(({ data }) => dispatch(addContactSuccess(data)))
-    .catch((error) => dispatch(addContactError(error)));
+    .catch(error => dispatch(addContactError(error)));
 };
 
-const deleteContact = (Id) => (dispatch) => {
+const deleteContact = id => dispatch => {
   dispatch(deleteContactRequest());
   axios
-    .delete(`/contacts/${Id}`)
-    .then(() => dispatch(deleteContactSuccess(Id)))
-    .catch((error) => dispatch(deleteContactError(error)));
+    .delete(`/contacts/${id}`)
+    .then(() => dispatch(deleteContactSuccess(id)))
+    .catch(error => dispatch(deleteContactError(error)));
 };
 
-export default { getContacts, addContact, deleteContact };
+export default {
+  getContacts,
+  addContact,
+  deleteContact,
+};

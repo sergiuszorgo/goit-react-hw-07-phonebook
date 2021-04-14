@@ -1,8 +1,8 @@
-import React from "react";
-import { connect } from "react-redux";
-import propTypes from "prop-types";
-import phonebookActions from "../../redux/phonebook/phonebook-actions";
-import s from "./ContactList.module.css";
+import React from 'react';
+import { connect } from 'react-redux';
+import propTypes from 'prop-types';
+import phonebookOperations from '../../redux/phonebook/phonebook-operations';
+import s from './ContactList.module.css';
 
 const ContactList = ({ contacts, deleteContact }) => (
   <div className={s.ContactBox}>
@@ -27,11 +27,11 @@ const ContactList = ({ contacts, deleteContact }) => (
 // рендер списка
 const renderContacts = (contacts, filter) => {
   const lowerName = filter.toLowerCase();
-  return contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(lowerName)
+  return contacts.filter(contact =>
+    contact.name.toLowerCase().includes(lowerName),
   );
 };
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { filter, contacts } = state.items;
   const visibleContacts = renderContacts(contacts, filter);
   return {
@@ -43,8 +43,8 @@ const mapStateToProps = (state) => {
 //   items: renderContacts(contacts, filter),
 // });
 
-const mapDispatchToProps = (dispatch) => ({
-  deleteContact: (id) => dispatch(phonebookActions.deleteContact(id)),
+const mapDispatchToProps = dispatch => ({
+  deleteContact: id => dispatch(phonebookOperations.deleteContact(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

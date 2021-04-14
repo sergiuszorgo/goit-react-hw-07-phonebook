@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import propTypes from "prop-types";
-import phonebookActions from "../../redux/phonebook/phonebook-actions";
+import phonebookOperations from "../../redux/phonebook/phonebook-operations";
 import s from "./ContactForm.module.css";
 
 class ContactForm extends Component {
@@ -25,33 +25,21 @@ class ContactForm extends Component {
 
   // отправка контакта
 
-  // checkDublicat = (name) => {
-  //   return this.props.contacts.some(
-  //     (contact) => contact.name.toLowerCase() === name.toLowerCase()
-  //   );
-  // };
+  checkDublicat = (name) => {
+    return this.props.contacts.some(
+      (contact) => contact.name.toLowerCase() === name.toLowerCase()
+    );
+  };
   pushContact = (e) => {
     e.preventDefault();
     const { name, number } = this.state;
-    // add new===
-    // const { contacts } = this.props;
-    // if (this.checkDublicat(this.state.name)) {
-    //   alert(`${name} already present in contacts`);
-    //   return;
-    // }
-
-    // const checkDublicat = contacts.filter(
-    //   (value) => name.toLowerCace() === value
-    // );
-    // if (checkDublicat.length) {
-    //   alert(`${name} already present in contacts`);
-    //   this.resetForm();
-    //   return;
-    // }
-    // add new===
+    const { addContact } = this.props;
+    if (this.checkDublicat(this.state.name)) {
+      alert(`${name} already present in contacts`);
+      return;
+    }
     if (name && number) {
-      this.props.addContact(this.state);
-      console.log(name, number);
+      addContact(this.state);
       this.resetForm();
       return;
     }
@@ -90,12 +78,15 @@ class ContactForm extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  contacts: state.items.contacts,
+});
 const mapDispatchToProps = (dispatch) => ({
   addContact: ({ name, number }) =>
-    dispatch(phonebookActions.addContact({ name, number })),
+    dispatch(phonebookOperations.addContact({ name, number })),
 });
 
-export default connect(null, mapDispatchToProps)(ContactForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
 
 ContactForm.propTypes = {
   addContact: propTypes.func,
