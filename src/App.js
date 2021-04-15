@@ -7,16 +7,6 @@ import SearchForm from './components/SearchForm/SearchForm';
 import phonebookOperations from './redux/phonebook/phonebook-operations';
 import { render } from '@testing-library/react';
 
-// const App = ({ contacts }) => {
-//   return (
-//     <div className="App">
-//       <h1>Phonebook</h1>
-//       <ContactForm />
-//       {contacts.length > 1 && <SearchForm />}
-//       <ContactList />
-//     </div>
-//   );
-// };
 class App extends Component {
   componentDidMount() {
     this.props.getContacts();
@@ -37,7 +27,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   contacts: state.items.contacts,
-  isLoadingContacts: state.loading,
+  isLoadingContacts: state.items.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
