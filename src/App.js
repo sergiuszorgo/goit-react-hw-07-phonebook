@@ -18,8 +18,11 @@ class App extends Component {
         <h1>Phonebook</h1>
         <ContactForm />
         {contacts.length > 1 && <SearchForm />}
-        <ContactList />
-        {this.props.isLoadingContacts && <h1>LOADING ...</h1>}
+        {this.props.isLoadingContacts ? (
+          <h1 className="Load">LOADING ...</h1>
+        ) : (
+          <ContactList />
+        )}
       </div>
     );
   }
