@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import {
   FLUSH,
   REHYDRATE,
@@ -6,8 +6,8 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
-import contactsReducer from "./phonebook/phonebook-reducer";
+} from 'redux-persist';
+import { contactsReducer } from './phonebook';
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -20,7 +20,7 @@ const middleware = [
 const store = configureStore({
   reducer: { items: contactsReducer },
   middleware,
-  devTools: process.env.NODE_ENV === "development",
+  devTools: process.env.NODE_ENV === 'development',
 });
 
 // const persistor = persistStore(store);

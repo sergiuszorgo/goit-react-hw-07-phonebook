@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import propTypes from "prop-types";
-import phonebookOperations from "../../redux/phonebook/phonebook-operations";
-import s from "./ContactForm.module.css";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import propTypes from 'prop-types';
+import s from './ContactForm.module.css';
+import { phonebookOperations, phonebookSelectors } from '../../redux/phonebook';
 
 class ContactForm extends Component {
   state = {
-    name: "",
-    number: "",
+    name: '',
+    number: '',
   };
 
   // добавление значений в state
-  inputChange = (e) => {
+  inputChange = e => {
     const { name, value } = e.currentTarget;
     this.setState({
       [name]: value,
@@ -20,17 +20,17 @@ class ContactForm extends Component {
 
   //   очистка формы
   resetForm = () => {
-    this.setState({ name: "", number: "" });
+    this.setState({ name: '', number: '' });
   };
 
   // отправка контакта
 
-  checkDublicat = (name) => {
+  checkDublicat = name => {
     return this.props.contacts.some(
-      (contact) => contact.name.toLowerCase() === name.toLowerCase()
+      contact => contact.name.toLowerCase() === name.toLowerCase(),
     );
   };
-  pushContact = (e) => {
+  pushContact = e => {
     e.preventDefault();
     const { name, number } = this.state;
     const { addContact } = this.props;
@@ -43,7 +43,7 @@ class ContactForm extends Component {
       this.resetForm();
       return;
     }
-    alert("Please enter name and phone");
+    alert('Please enter name and phone');
   };
 
   render() {
@@ -78,10 +78,10 @@ class ContactForm extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  contacts: state.items.contacts,
+const mapStateToProps = state => ({
+  contacts: phonebookSelectors.getAllContacts(state),
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   addContact: ({ name, number }) =>
     dispatch(phonebookOperations.addContact({ name, number })),
 });

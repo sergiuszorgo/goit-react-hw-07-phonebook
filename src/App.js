@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
-import ContactList from './components/ContactList/ContactList';
-import ContactForm from './components/ContactForm/ContactForm';
-import SearchForm from './components/SearchForm/SearchForm';
-import phonebookOperations from './redux/phonebook/phonebook-operations';
-import { render } from '@testing-library/react';
+import ContactList from './components/ContactList';
+import ContactForm from './components/ContactForm';
+import SearchForm from './components/SearchForm';
+import { phonebookOperations, phonebookSelectors } from './redux/phonebook';
+// import { render } from '@testing-library/react';
 
 class App extends Component {
   componentDidMount() {
@@ -26,8 +26,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  contacts: state.items.contacts,
-  isLoadingContacts: state.items.loading,
+  contacts: phonebookSelectors.getAllContacts(state),
+  isLoadingContacts: phonebookSelectors.getLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
